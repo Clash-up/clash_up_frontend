@@ -8,7 +8,7 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
 // Register HttpService
-builder.Services.AddSingleton<IHttpService>(sp => new HttpService("http://localhost:8000/api"));
+builder.Services.AddSingleton<IHttpService>(sp => new HttpService("https://jsonplaceholder.typicode.com"));
 
 var app = builder.Build();
 

@@ -1,0 +1,45 @@
+@page "/testservice"
+@inject clash_up_frontend.Services.IHttpService HttpService
+
+<h3>Lista postów (testowanie serwisu http)</h3>
+
+@if (posts == null)
+{
+    <p><em>Wczytywanie danych...</em></p>
+}
+else
+{
+    <ul>
+        @foreach (var post in posts)
+        {
+            <li>
+                <strong>@post.Title</strong><br />
+                @post.Body
+            </li>
+        }
+    </ul>
+}
+
+@code {
+    private List<Post>? posts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            posts = await HttpService.GetAsync<List<Post>>("posts");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Błąd pobierania danych: {ex.Message}");
+        }
+    }
+
+    public class Post
+    {
+        public int Id { get; set; }
+        public int UserId { get; set; }
+        public string Title { get; set; } = string.Empty;
+        public string Body { get; set; } = string.Empty;
+    }
+}
