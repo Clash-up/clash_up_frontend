@@ -1,10 +1,14 @@
 using clash_up_frontend.Components;
+using clash_up_frontend.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+// Register HttpService
+builder.Services.AddSingleton<IHttpService>(sp => new HttpService("http://localhost:8000/api"));
 
 var app = builder.Build();
 
